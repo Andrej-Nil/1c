@@ -1,0 +1,36 @@
+.sidebar-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 420px;
+  max-height: 100vh;
+  height: 100%;
+  background: #fff3a9;
+  padding: 50px 30px;
+  color: #000;
+}
+
+.sidebar-submenu__title {
+  font-family: FuturaMediumC, Trebuchet MS, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  padding: 0 30px;
+  margin-bottom: 30px;
+}
+
+.sidebar-submenu__link {
+  padding: 0 30px;
+  height: 51px;
+  display: flex;
+  align-items: center;
+  &:hover {
+    background: #e5da98;
+  }
+  &_active {
+    background: #f9ed9b;
+  }
+}
+
+.sidebar-submenu__item {
+  border-bottom: 1px solid #e5da98;
+}
