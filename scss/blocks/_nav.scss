@@ -1,0 +1,10 @@
+.nav__list {
+  display: flex;
+  gap: 30px;
+}
+
+.nav__link {
+  &:hover {
+    color: #d61a20;
+  }
+}

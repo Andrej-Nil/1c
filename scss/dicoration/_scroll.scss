@@ -1,0 +1,14 @@
+._scroll {
+  scrollbar-width: thin; /* "auto" или "thin"  */
+  scrollbar-color: #7e7e7e #bbb;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #bbb;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #8e8e8e;
+    border-radius: 3px;
+  }
+}

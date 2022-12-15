@@ -1,0 +1,37 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f2f2f2;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+
+img {
+  display: block;
+}
+
+li,
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #444;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+.main-container {
+  margin: 0 20px 0 370px;
+  //max-width: 1530px;
+  //padding: 0 20px;
+}
