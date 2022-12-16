@@ -1,13 +1,42 @@
 .sidebar-submenu {
+  display: none;
   position: absolute;
+  //display: flex;
+  flex-direction: column;
   top: 0;
-  left: 100%;
+
   width: 420px;
   max-height: 100vh;
-  height: 100%;
   background: #fff3a9;
   padding: 50px 30px;
   color: #000;
+  box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
+  &.open {
+    left: 100%;
+  }
+}
+
+.lvl2 {
+  &.open {
+    left: 220%;
+  }
+}
+
+.sidebar-submenu__close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url("./../image/icon/close.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.sidebar-submenu__list {
+  overflow: auto;
 }
 
 .sidebar-submenu__title {
@@ -19,10 +48,12 @@
 }
 
 .sidebar-submenu__link {
+  position: relative;
   padding: 0 30px;
   height: 51px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background: #e5da98;
   }

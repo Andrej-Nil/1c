@@ -3,11 +3,18 @@
 @import "./dicoration/scroll";
 
 @import "./elements/logo";
+@import "./elements/page-title";
+@import "./elements/view-counter";
 
 @import "./blocks/sidebar";
+@import "./blocks/sidebar-nav";
+@import "./blocks/sidebar-submenu";
+@import "./blocks/sidebar-mini";
 @import "./blocks/header";
+@import "./blocks/breadcrumbs";
+@import "./blocks/page-top";
+@import "./blocks/list-block";
+@import "./blocks/short-card";
 @import "./blocks/nav";
 @import "./blocks/info-block";
 @import "./blocks/search";
-@import "./blocks/sidebar-nav";
-@import "./blocks/sidebar-submenu";

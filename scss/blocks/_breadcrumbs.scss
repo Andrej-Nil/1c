@@ -1,0 +1,32 @@
+.breadcrumbs {
+  height: 54px;
+  background: #fff;
+  margin-bottom: 1px;
+}
+
+.breadcrumbs__inner {
+  display: flex;
+  gap: 15px;
+  height: 100%;
+  align-items: center;
+}
+
+.breadcrumbs__link {
+  color: #16489b;
+  &:hover {
+    color: #d61a20;
+  }
+}
+.breadcrumbs__current {
+  color: #a4a4a4;
+}
+.breadcrumbs__arrow {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-image: url("./../image/icon/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+}

@@ -1,0 +1,19 @@
+.view-counter {
+  position: relative;
+  padding-left: 22px;
+  font-size: 13px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: block;
+    width: 20px;
+    height: 10px;
+    background-image: url("./../image/icon/eye.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+}

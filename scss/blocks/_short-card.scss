@@ -1,0 +1,41 @@
+.short-card {
+}
+.short-card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  &:hover {
+    box-shadow: 4px 4px 8px -2px rgb(0 0 0 / 25%);
+  }
+}
+
+.short-card__link {
+  display: flex;
+  gap: 20px;
+  padding: 15px 50px;
+}
+
+.short-card__day {
+  display: block;
+  font-size: 25px;
+}
+
+.short-card__month {
+  font-size: 12px;
+}
+
+.short-card__year {
+  font-size: 12px;
+  color: #b4b4b4;
+}
+.short-card__content {
+  display: flex;
+  flex-direction: column;
+}
+.short-card__text {
+  color: #16489b;
+}
+
+.short-card__view-counter {
+  margin-top: auto;
+}
