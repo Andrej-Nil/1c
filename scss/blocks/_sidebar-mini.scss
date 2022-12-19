@@ -16,6 +16,8 @@
   }
 
   .sidebar-nav__link {
+    position: relative;
+    z-index: 100;
     .sidebar-nav__label {
       display: none;
     }

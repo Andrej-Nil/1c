@@ -37,3 +37,13 @@ a {
 .full-container {
   margin: 0 20px 0 93px;
 }
+
+.screen-container {
+  position: absolute;
+  margin: 0 0 0 93px;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 115px;
+}

@@ -1,0 +1,32 @@
+.nav-list {
+  &_sub {
+    padding-left: 20px;
+  }
+}
+
+.nav-item {
+  margin-bottom: 2px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.nav-item__title {
+  display: flex;
+  align-items: center;
+  padding: 5px 0 5px 10px;
+  gap: 10px;
+  cursor: pointer;
+  &:hover {
+    background: #ffdf16;
+  }
+}
+
+.nav-item__indicator {
+  display: block;
+  width: 13px;
+  height: 13px;
+  background-image: url("./../image/icon/close-nav.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}

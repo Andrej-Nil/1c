@@ -1,0 +1,25 @@
+.back {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  height: 54px;
+  padding: 0 30px;
+}
+
+.back__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #16489b;
+}
+
+.back__link-arrow {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 12px;
+  background-image: url("./../image/icon/arrow.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: rotate(180deg);
+}
