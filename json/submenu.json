@@ -1,0 +1,46 @@
+{
+  "content": [
+    {
+      "id": 11,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  true
+    },
+    {
+      "id": 36,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  false
+    },
+    {
+      "id": 21,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  true
+    },
+    {
+      "id": 31,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  true
+    },
+    {
+      "id": 54,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  false
+    },
+    {
+      "id": 23,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  false
+    },
+    {
+      "id": 33,
+      "slug": "information.ru",
+      "label": "information 1c",
+      "submenu":  false
+    }
+  ]
+}

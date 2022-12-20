@@ -64,6 +64,17 @@ a {
   border-radius: 3px;
 }
 
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  60% {
+    transform: rotateY(360deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
 .logo {
   max-width: 150px;
 }
@@ -96,6 +107,46 @@ a {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+
+.loader {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.loader__spinner {
+  max-width: 100px;
+  width: 100%;
+  animation: rotate 2s infinite;
+}
+
+.loader__text {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+}
+
+.error__img {
+  max-width: 100px;
+  width: 100%;
+}
+
+.error__text {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .sidebar {
@@ -167,16 +218,19 @@ a {
 }
 
 .sidebar-submenu {
-  display: none;
   position: absolute;
+  display: flex;
   flex-direction: column;
   top: 0;
+  left: -25%;
   width: 420px;
   max-height: 100vh;
+  height: 100%;
   background: #fff3a9;
   padding: 50px 30px;
   color: #000;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.25);
+  transition: 0.2s ease-in-out;
 }
 .sidebar-submenu.open {
   left: 100%;
@@ -197,6 +251,11 @@ a {
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+}
+
+.sidebar-submenu__content {
+  overflow: auto;
+  flex-grow: 1;
 }
 
 .sidebar-submenu__list {

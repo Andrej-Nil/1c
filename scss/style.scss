@@ -1,11 +1,14 @@
 @import "./main";
 
 @import "./dicoration/scroll";
+@import "./animation/rotate";
 
 @import "./elements/logo";
 @import "./elements/page-title";
 @import "./elements/view-counter";
 
+@import "./blocks/loader";
+@import "./blocks/error";
 @import "./blocks/sidebar";
 @import "./blocks/sidebar-nav";
 @import "./blocks/sidebar-submenu";

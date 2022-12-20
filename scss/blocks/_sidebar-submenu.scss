@@ -1,16 +1,17 @@
 .sidebar-submenu {
-  display: none;
   position: absolute;
-  //display: flex;
+  display: flex;
   flex-direction: column;
   top: 0;
-
+  left: -25%;
   width: 420px;
   max-height: 100vh;
+  height: 100%;
   background: #fff3a9;
   padding: 50px 30px;
   color: #000;
   box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
+  transition: 0.2s ease-in-out;
   &.open {
     left: 100%;
   }
@@ -33,6 +34,11 @@
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+}
+
+.sidebar-submenu__content {
+  overflow: auto;
+  flex-grow: 1;
 }
 
 .sidebar-submenu__list {
