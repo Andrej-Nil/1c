@@ -4,6 +4,13 @@
   }
 }
 
+.nav-item__sublist {
+  overflow: hidden;
+  &.close {
+    height: 0;
+  }
+}
+
 .nav-item {
   margin-bottom: 2px;
   &:last-child {
@@ -26,7 +33,16 @@
   display: block;
   width: 13px;
   height: 13px;
-  background-image: url("./../image/icon/close-nav.png");
+
   background-repeat: no-repeat;
   background-size: contain;
+  &.close {
+    background-image: url("./../image/icon/close-nav.png");
+  }
+  &.open {
+    background-image: url("./../image/icon/open-nav.png");
+  }
+  &.file {
+    background-image: url("./../image/icon/file.png");
+  }
 }

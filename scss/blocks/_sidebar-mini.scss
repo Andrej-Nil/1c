@@ -1,5 +1,9 @@
 .sidebar_mini {
   width: 73px;
+  .sidebar__top {
+    align-items: flex-start;
+    padding: 15px 0;
+  }
   .sidebar__title {
     display: none;
   }
@@ -35,5 +39,9 @@
         display: block;
       }
     }
+  }
+
+  .sidebar-submenu {
+    transform: translateX(-100%);
   }
 }

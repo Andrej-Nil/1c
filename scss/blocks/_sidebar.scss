@@ -1,10 +1,9 @@
 .sidebar {
   position: absolute;
   display: flex;
-  //background: #fdfdfd;
   min-height: 100%;
   width: 350px;
-  //box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
+  z-index: 100;
 }
 
 .sidebar__content {
@@ -12,6 +11,7 @@
   background: #fdfdfd;
   min-height: 100%;
   width: 100%;
+  z-index: 100;
   box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
 }
 
@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 134px;
   padding: 15px 10px;
 }
 

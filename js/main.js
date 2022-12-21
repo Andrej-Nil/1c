@@ -65,12 +65,15 @@ class Render {
     } else {
       this._render($parent, this.getSidebarSubmenuHtml, list);
     }
+  }
 
+  renderDropdown = ($parent, list) => {
+    this._render($parent, this.getDropdownListHtml, list);
   }
 
 
   renderLoader = ($parent) => {
-    this._render($parent, this.getLoaderHtml);
+    this._render($parent, this.getLoaderHtml, true);
   }
 
   renderError = ($parent, massage) => {
@@ -88,7 +91,6 @@ class Render {
     `
   }
 
-
   getSidebarSubmenuLvl2Html = (list) => {
     const itemList = this.getListHtml(this.getSidebarSubmenuLink, list);
     return /*html*/`
@@ -97,6 +99,8 @@ class Render {
       </ul>
     `
   }
+
+
   getSidebarSubmenuListHtml = (item) => {
     if (item.submenu) {
       return this.getSidebarSubmenuItem(item);
@@ -133,22 +137,69 @@ class Render {
       `
   }
 
-
-  getLoaderHtml = () => {
+  getDropdownListHtml = (list) => {
+    const itemList = this.getListHtml(this.getDropdownListItemsHtml, list);
     return /*html*/`
-      <div class="loader">
+      <ul class="nav-list nav-list_sub">
+        ${itemList}
+      </ul>
+    `
+  }
+
+  getDropdownListItemsHtml = (item) => {
+    if (item.submenu) {
+      return this.getDropdownItem(item);
+    } else {
+      return this.getDropdownLink(item);
+    }
+  }
+
+  getDropdownItem = (item) => {
+    return /*html*/`
+      <li data-dropdown="${item.id}" class="nav-item">
+
+        <div data-dropdown-btn="close" class="nav-item__title">
+          <i data-dropdown-icon class="nav-item__indicator close"></i>
+          <span class="nav-item__label">
+            ${item.label}
+          </span>
+        </div>
+        <div data-dropdown-content class="nav-item__sublist close">
+
+        </div>
+      </li>
+    `
+  }
+
+  getDropdownLink = (item) => {
+    return /*html*/`
+    <li class="nav-item">
+      <a href="${item.slug}" class="nav-item__title">
+        <i class="nav-item__indicator file"></i>
+        <span class="nav-item__label">
+          ${item.label}
+        </span>
+      </a>
+    </li>
+  `
+  }
+  getLoaderHtml = (mini) => {
+    const cls = ['loader']
+    if (mini) cls.push('loader_mini')
+    return /*html*/`
+      <div class="${cls.join(' ')}" >
         <img class="loader__spinner" src="./image/logo.png" alt="">
         <p class="loader__text">Загружаю</p>
-    </div>
-  `
+      </div>
+    `
   }
 
   getErrorHtml = (text) => {
-    if (text === undefined) {
-      text = 'Неудалось получить данные. Попробуйте обновить страницу.'
+    if (!text) {
+      text = 'Неудалось получить данные. Попробуйте обновить страницу.';
     }
     return /*html*/`
-      <div class="error">
+      <div div class="error" >
         <img src="./image/icon/oops.png" alt="" class="error__img">
         <p class="error__text">${text}</p>
       </div>
@@ -194,7 +245,6 @@ class Render {
 
 }
 
-
 class Sidebar {
   constructor(id) {
     this.$sidebar = document.querySelector(id);
@@ -211,7 +261,9 @@ class Sidebar {
   }
 
   open($submemu) {
+    this.$sidebar.classList.remove('sidebar_mini');
     $submemu.classList.add('open');
+    this.openSidebar();
   }
 
   close($btn) {
@@ -219,9 +271,11 @@ class Sidebar {
     if (type === 'submenu-one') {
       this.$submenuOne.classList.remove('open');
       this.$submenuTwo.classList.remove('open');
+      this.toggleSidebar();
     }
     if (type === 'submenu-two') {
       this.$submenuTwo.classList.remove('open');
+      this.toggleSidebar();
     }
   }
 
@@ -255,7 +309,28 @@ class Sidebar {
     }
   }
 
+  openSidebar = () => {
+    this.$sidebar.dataset.status = "open";
+    this.$sidebar.classList.remove('sidebar_mini');
+  }
 
+  closeSidebar = () => {
+    this.$sidebar.dataset.status = "close";
+    this.$sidebar.classList.add('sidebar_mini');
+  }
+
+  toggleSidebar = () => {
+    if (this.$sidebar.hasAttribute('data-not-mini')) return;
+    const sidebarStatus = this.$sidebar.dataset.status;
+    if (sidebarStatus === 'open') {
+      this.closeSidebar()
+      return;
+    }
+    if (sidebarStatus === 'close') {
+      this.openSidebar()
+      return;
+    }
+  }
 
   clickHandler = (e) => {
     if (e.target.closest('[data-submenu-id]')) {
@@ -270,7 +345,81 @@ class Sidebar {
     this.$sidebar.addEventListener('click', this.clickHandler);
   }
 }
+class Dropdown {
+  constructor() {
+    this.$dropdown = null;
+    this.$dropdownContent = null;
+    this.$dropdownIcon = null;
+    this.$btn = null;
+    this.init();
+  }
+
+  init = () => {
+    this.listeners();
+  }
+
+  open = () => {
+    this.$btn.dataset.dropdownBtn = 'open';
+    this.$dropdownContent.classList.remove('close');
+    this.$dropdownIcon.classList.add('open');
+    this.$dropdownIcon.classList.remove('close');
+    if (this.$dropdownContent.querySelector('ul')) return
+    render.renderLoader(this.$dropdownContent);
+    this.createListHandler();
+  }
+
+  createListHandler = async () => {
+    const id = this.$dropdown.dataset.dropdown;
+    const response = await service.getCategories(id);
+
+    if (response.error) {
+      render.clearParent(this.$dropdownContent);
+      render.renderError(this.$dropdownContent);
+    }
+    if (response.content) {
+      render.clearParent(this.$dropdownContent);
+      render.renderDropdown(this.$dropdownContent, response.content);
+    }
+
+  }
+
+  close = () => {
+    this.$btn.dataset.dropdownBtn = 'close';
+    this.$dropdownIcon.classList.remove('open');
+    this.$dropdownIcon.classList.add('close');
+    this.$dropdownContent.classList.add('close');
+  }
+
+  toggleDropdown = ($targetEl) => {
+
+    this.$btn = $targetEl;
+    this.$dropdown = $targetEl.closest('[data-dropdown]');
+    this.$dropdownContent = this.$dropdown.querySelector('[data-dropdown-content]');
+    this.$dropdownIcon = this.$dropdown.querySelector('[data-dropdown-icon]');
+    const status = this.$btn.dataset.dropdownBtn;
+    if (status === 'open') {
+      this.close();
+      return;
+    }
+
+    if (status === 'close') {
+      this.open();
+      return;
+    }
+  }
+
+  clickHandler = (e) => {
+    if (e.target.closest('[data-dropdown-btn]')) {
+      this.toggleDropdown(e.target.closest('[data-dropdown-btn]'));
+    }
+  }
+
+  listeners = () => {
+    document.addEventListener('click', this.clickHandler);
+  }
+}
 
 const service = new Service();
 const render = new Render();
 const sidebar = new Sidebar('#sidebar');
+const dropdown = new Dropdown();
