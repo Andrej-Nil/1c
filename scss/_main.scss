@@ -31,19 +31,29 @@ a {
 }
 
 .main-container {
-  margin: 0 20px 0 370px;
+  margin: 0 10px 0 70px;
+  @media (min-width: 1280px) {
+    margin: 0 20px 0 370px;
+  }
 }
 
 .full-container {
-  margin: 0 20px 0 93px;
+  margin: 0 10px 0 70px;
+  @media (min-width: 1280px) {
+    margin: 0 20px 0 93px;
+  }
 }
 
 .screen-container {
   position: absolute;
-  margin: 0 0 0 93px;
+
+  margin: 0 0 0 60px;
   display: flex;
   bottom: 0;
   right: 0;
   left: 0;
   top: 115px;
+  @media (min-width: 1280px) {
+    margin: 0 0 0 93px;
+  }
 }

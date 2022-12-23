@@ -52,7 +52,6 @@ class Service {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   }
 }
-
 class Render {
   constructor() {
 
@@ -116,10 +115,10 @@ class Render {
     return /*html*/`
       <li class="sidebar-submenu__item">
         <span data-submenu-id="${item.id}" data-type="submenu-two" class="sidebar-submenu__link">
-          <span class="sidebar-nav__label">
+          <span class="submenu-nav__label">
             ${item.label}
           </span>
-          <i class="sidebar-nav__arrow"></i>
+          <i class="submenu-nav__arrow"></i>
         </span>
       </li>
       `
@@ -129,7 +128,7 @@ class Render {
     return /*html*/`
       <li class="sidebar-submenu__item">
         <a href="${item.slug}" class="sidebar-submenu__link">
-          <span class="sidebar-nav__label">
+          <span class="submenu-nav__label">
             ${item.label}
           </span>
         </a>
@@ -244,7 +243,6 @@ class Render {
   }
 
 }
-
 class Sidebar {
   constructor(id) {
     this.$sidebar = document.querySelector(id);
@@ -257,16 +255,18 @@ class Sidebar {
     if (!this.$sidebar) return;
     this.$submenuOne = this.$sidebar.querySelector('#submenu');
     this.$submenuTwo = this.$sidebar.querySelector('#submenuTwo');
+    this.$openBtn = this.$sidebar.querySelector('[data-open-sidebar]');
+    this.$closeBtn = this.$sidebar.querySelector('[data-close-sidebar]');
     this.listeners();
   }
 
-  open($submemu) {
+  openSubmenu($submemu) {
     this.$sidebar.classList.remove('sidebar_mini');
     $submemu.classList.add('open');
     this.openSidebar();
   }
 
-  close($btn) {
+  closeSubmenu($btn) {
     const type = $btn.dataset.close;
     if (type === 'submenu-one') {
       this.$submenuOne.classList.remove('open');
@@ -275,9 +275,11 @@ class Sidebar {
     }
     if (type === 'submenu-two') {
       this.$submenuTwo.classList.remove('open');
-      this.toggleSidebar();
+      //this.toggleSidebar();
     }
   }
+
+
 
   createSubmenuContent = async ($submenu, id) => {
     const $submenuContent = $submenu.querySelector('[data-content]');
@@ -293,18 +295,17 @@ class Sidebar {
       render.clearParent($submenuContent);
       render.renderSidebarSubmenu($submenuContent, response.content);
     }
-
   }
 
   showSubmenuHadler = ($item) => {
     const id = $item.dataset.submenuId;
     const type = $item.dataset.type;
     if (type === 'submenu-one') {
-      this.open(this.$submenuOne);
+      this.openSubmenu(this.$submenuOne);
       this.createSubmenuContent(this.$submenuOne, id);
     }
     if (type === 'submenu-two') {
-      this.open(this.$submenuTwo);
+      this.openSubmenu(this.$submenuTwo);
       this.createSubmenuContent(this.$submenuTwo, id);
     }
   }
@@ -317,6 +318,29 @@ class Sidebar {
   closeSidebar = () => {
     this.$sidebar.dataset.status = "close";
     this.$sidebar.classList.add('sidebar_mini');
+  }
+
+
+
+  openSidebarMobile = () => {
+    this.$sidebar.classList.add('sidebar_open');
+    this.showBtn(this.$closeBtn);
+    this.hideBtn(this.$openBtn);
+  }
+  closeSidebarMobile = () => {
+    this.$sidebar.classList.remove('sidebar_open');
+    this.showBtn(this.$openBtn);
+    this.hideBtn(this.$closeBtn);
+
+  }
+
+
+  showBtn = ($btn) => {
+    $btn.classList.add('show');
+  }
+
+  hideBtn = ($btn) => {
+    $btn.classList.remove('show');
   }
 
   toggleSidebar = () => {
@@ -337,7 +361,14 @@ class Sidebar {
       this.showSubmenuHadler(e.target.closest('[data-submenu-id]'));
     }
     if (e.target.closest('[data-close]')) {
-      this.close(e.target.closest('[data-close]'));
+      this.closeSubmenu(e.target.closest('[data-close]'));
+    }
+
+    if (e.target.closest('[data-open-sidebar]')) {
+      this.openSidebarMobile();
+    }
+    if (e.target.closest('[data-close-sidebar]')) {
+      this.closeSidebarMobile();
     }
   }
 
@@ -419,7 +450,104 @@ class Dropdown {
   }
 }
 
+class SidebarSearch {
+  constructor(id) {
+    this.$searchForm = document.querySelector(id)
+    this.init();
+  }
+
+  init = () => {
+    if (!this.$searchForm) return;
+    this.$input = this.$searchForm.querySelector('[data-input]');
+    this.$openBtn = this.$searchForm.querySelector('[data-input-open]');
+    this.$closeBtn = this.$searchForm.querySelector('[data-input-close]');
+    this.listeners();
+  }
+
+  open = () => {
+    this.$searchForm.classList.add('search__form_active');
+    this.showCloseBtn();
+    this.showInput();
+  }
+
+  close = () => {
+    this.$searchForm.classList.remove('search__form_active');
+    this.hideCloseBtn();
+    this.hideInput();
+  }
+
+  showCloseBtn = () => {
+    this.$closeBtn.classList.add('show');
+  }
+
+  hideCloseBtn = () => {
+    this.$closeBtn.classList.remove('show');
+  }
+  showInput = () => {
+    this.$input.classList.add('show');
+  }
+
+  hideInput = () => {
+    this.$input.classList.remove('show');
+  }
+
+  clickHandler = (e) => {
+    if (e.target.closest('[data-input-open]')) {
+      this.open()
+    }
+    if (e.target.closest('[data-input-close]')) {
+      this.close()
+    }
+  }
+  listeners = () => {
+    this.$searchForm.addEventListener('click', this.clickHandler);
+  }
+
+
+}
+
+class NavBlock {
+  constructor(id) {
+    this.$navBlock = document.querySelector(id);
+    this.init();
+  }
+  init = () => {
+    if (!this.$navBlock) return;
+    this.$navBlockBtn = document.querySelector('navBlockBtn');
+  }
+}
+
+class Navigation {
+  constructor(id) {
+    this.$nav = document.querySelector(id);
+    this.$openBtn = document.querySelector('[data-mabile-menu-open]');
+    this.$closeBtn = document.querySelector('[data-mabile-menu-close]');
+    this.init();
+  }
+
+  init = () => {
+    if (!this.$nav) return;
+    this.listeners();
+  }
+
+  open = () => {
+    this.$nav.classList.add('open');
+  }
+
+  close = () => {
+    this.$nav.classList.remove('open');
+  }
+
+  listeners = () => {
+    this.$openBtn.addEventListener('click', this.open);
+    this.$closeBtn.addEventListener('click', this.close);
+  }
+}
+
 const service = new Service();
 const render = new Render();
 const sidebar = new Sidebar('#sidebar');
 const dropdown = new Dropdown();
+const sidebarSearch = new SidebarSearch('#searchForm');
+const navigation = new Navigation('#navigation');
+const navBlock = new NavBlock('#navBlock');

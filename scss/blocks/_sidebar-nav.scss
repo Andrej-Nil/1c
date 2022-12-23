@@ -11,10 +11,17 @@
   height: 50px;
   gap: 5px;
   align-items: center;
-  padding: 0 0 0 25px;
+  padding: 0 0 0 20px;
   cursor: pointer;
   &:hover {
     background: #ffdf16;
+  }
+}
+
+.sidebar-nav__label {
+  display: none;
+  @media (min-width: 1280px) {
+    display: block;
   }
 }
 
@@ -23,7 +30,7 @@
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  display: block;
+  display: none;
   width: 20px;
   height: 10px;
   background-image: url("./../image/icon/arrow.svg");
@@ -31,4 +38,7 @@
   background-position: center;
   background-size: contain;
   cursor: pointer;
+  @media (min-width: 1280px) {
+    display: block;
+  }
 }

@@ -3,32 +3,79 @@
   display: flex;
   flex-direction: column;
   top: 0;
-  left: -25%;
-  width: 420px;
+  left: -10px;
+  width: 310px;
+  transform: translateX(-100%);
   max-height: 100vh;
   height: 100%;
   background: #fff3a9;
-  padding: 50px 30px;
+  padding: 30px 10px;
   color: #000;
   box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
   transition: 0.2s ease-in-out;
-  z-index: 20;
 
+  z-index: 200;
   &.open {
-    left: 100%;
+    left: 0;
+    transform: translateX(0);
+    @media (min-width: 700px) {
+      transform: translateX(0);
+      left: 100%;
+    }
+  }
+
+  @media (min-width: 700px) {
+    z-index: 1;
+    //transform: translateX(0);
+    //left: 100%;
+  }
+
+  @media (min-width: 900px) {
+    //width: 330px;
+    //padding: 50px 30px;
+  }
+
+  @media (min-width: 1040px) {
+    width: 330px;
+    padding: 50px 30px;
+  }
+  @media (min-width: 1280px) {
+    left: -25%;
+    width: 420px;
+    padding: 50px 30px;
   }
 }
 
 .lvl2 {
+  z-index: 300;
   &.open {
-    left: 220%;
+    //left: 0;
+    transform: translateX(0);
+
+    @media (min-width: 1040px) {
+      //width: 330px;
+      //padding: 50px 30px;
+      transform: translateX(100%);
+    }
+    @media (min-width: 1280px) {
+      transform: none;
+      left: 220%;
+      display: block;
+    }
+  }
+
+  @media (min-width: 700px) {
+    z-index: 100;
+  }
+  @media (min-width: 1040px) {
+    z-index: 1;
   }
 }
 
 .sidebar-submenu__close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 15px;
+  right: 15px;
   display: block;
   width: 20px;
   height: 20px;
@@ -50,14 +97,19 @@
 .sidebar-submenu__title {
   font-family: FuturaMediumC, Trebuchet MS, Arial, sans-serif;
   font-weight: 400;
-  font-size: 24px;
-  padding: 0 30px;
-  margin-bottom: 30px;
+  font-size: 18px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  @media (min-width: 1280px) {
+    padding: 0 30px;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
 }
 
 .sidebar-submenu__link {
   position: relative;
-  padding: 0 30px;
+  padding: 0 10px;
   height: 51px;
   display: flex;
   align-items: center;
@@ -68,8 +120,28 @@
   &_active {
     background: #f9ed9b;
   }
+  @media (min-width: 1280px) {
+    padding: 0 30px;
+  }
 }
 
 .sidebar-submenu__item {
   border-bottom: 1px solid #e5da98;
+}
+
+.submenu-nav__arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 10px;
+  background-image: url("./../image/icon/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+  @media (min-width: 1280px) {
+    display: block;
+  }
 }

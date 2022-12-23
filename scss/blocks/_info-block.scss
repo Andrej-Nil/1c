@@ -2,7 +2,10 @@
   background: #fff;
   border: 1px solid #e6e6e6;
   box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-  padding: 30px 20px 50px 50px;
+  padding: 10px;
+  @media (min-width: 1280px) {
+    padding: 30px 20px 50px 50px;
+  }
 }
 
 .info-block__top {
@@ -19,9 +22,12 @@
 }
 
 .info-block__list {
-  height: 500px;
   overflow-y: auto;
   padding-right: 20px;
+  height: 400px;
+  @media (min-width: 720px) {
+    height: 500px;
+  }
 }
 
 .info-block__item {
@@ -30,7 +36,12 @@
 
 .info-block-short {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 5px;
+  @media (min-width: 1280px) {
+    flex-direction: row;
+    gap: 20px;
+  }
 }
 
 .info-block-short__data {

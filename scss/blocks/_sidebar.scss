@@ -1,9 +1,13 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
   display: flex;
   min-height: 100%;
-  width: 350px;
+  width: 60px;
   z-index: 100;
+  @media (min-width: 1280px) {
+    position: absolute;
+    width: 350px;
+  }
 }
 
 .sidebar__content {
@@ -13,22 +17,4 @@
   width: 100%;
   z-index: 100;
   box-shadow: 5px 0 5px rgb(0 0 0 / 25%);
-}
-
-.sidebar__top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 134px;
-  padding: 15px 10px;
-}
-
-.sidebar__logo {
-  width: 140px;
-  flex-shrink: 0;
-}
-
-.sidebar__title {
-  font-size: 18px;
-  color: #d61a20;
 }

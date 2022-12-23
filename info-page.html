@@ -12,119 +12,14 @@
 
 <body>
   <div class="app">
-    <div id="sidebar" data-status="close" class="sidebar sidebar_mini">
+    <div id="sidebar" data-status="open" class="sidebar sidebar_mini">
       <div id="submenuTwo" class="sidebar-submenu lvl2">
         <i data-close="submenu-two" class="sidebar-submenu__close"></i>
         <h3 class="sidebar-submenu__title">
-          Инструкции по учету в программах 1С
+          Инструкции по учету в программах 21С
         </h3>
         <div data-content="only-link" class="sidebar-submenu__content _scroll">
-          <ul class="sidebar-submenu__list">
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link sidebar-submenu__link_active">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <a href="#!" class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-              </a>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-            <li class="sidebar-submenu__item">
-              <span class="sidebar-submenu__link">
-                <span class="sidebar-nav__label">
-                  Инструкции по учету в программах 1С
-                </span>
-                <i class="sidebar-nav__arrow"></i>
-              </span>
-            </li>
-          </ul>
+
         </div>
       </div>
       <div id="submenu" class="sidebar-submenu">
@@ -138,25 +33,34 @@
         </div>
       </div>
 
+
       <div class="sidebar__content">
-        <div class="sidebar__top">
-          <div class="sidebar__logo">
-            <div class="logo">
-              <a href="index.html" class="logo__link">
-                <img src="/./image/logo.png" class="logo__img" alt="">
-              </a>
+        <div class="sidebar-top">
+          <div class="sidebar-top__logo">
+            <div class="sidebar-top__icon">
+              <div class="logo">
+                <a href="index.html" class="logo__link">
+                  <img src="/./image/logo.png" class="logo__img" alt="">
+                </a>
+              </div>
             </div>
+
+
+            <span class="sidebar-top__title">
+              Информационный сервис 1C
+            </span>
           </div>
-
-          <span class="sidebar__title">
-            Информационный сервис 1C
-          </span>
-
+          <div class="sidebar-top__controls">
+            <i data-open-sidebar class="sidebar-top__btn sidebar-top__btn_open show"></i>
+            <i data-close-sidebar class="sidebar-top__btn sidebar-top__btn_close"></i>
+          </div>
         </div>
         <div class="search">
           <form id="searchForm" action="" class="search__form ">
-            <i class="search__icon"></i>
-            <input class="search__input" type="text" name="searct" placeholder="Поиск по сайту" />
+            <i data-input-open class="search__icon"></i>
+            <input data-input data-input-open class="search__input" type="text" name="searct"
+              placeholder="Поиск по сайту" />
+            <i data-input-close class="search__close"></i>
           </form>
         </div>
 
@@ -196,7 +100,8 @@
     </div>
     <div class="content">
       <header class="header full-container">
-        <nav class="nav">
+        <nav id="navigation" class="nav">
+          <i data-mabile-menu-close class="mobile-menu-close"></i>
           <ul class="nav__list">
             <li class="nav__item">
               <a href="news.html" class="nav__link">
@@ -225,21 +130,30 @@
             </li>
           </ul>
         </nav>
+        <i data-mabile-menu-open class="mobile-menu-open"></i>
       </header>
       <div class="breadcrumbs">
-        <div class="breadcrumbs__inner full-container">
+        <div class="breadcrumbs__path full-container">
           <a href="#!" class="breadcrumbs__link">Главная</a>
           <i class="breadcrumbs__arrow"></i>
           <a href="#!" class="breadcrumbs__link">Категория</a>
           <i class="breadcrumbs__arrow"></i>
           <span class="breadcrumbs__current">Текущая</span>
         </div>
+        <div class="breadcrumbs__mobile back full-container">
+          <a href="#!" class="back__link">
+            <i class="back__link-arrow"></i>
+            <span class="back__link-label">
+              Назад
+            </span>
+          </a>
+        </div>
       </div>
 
       <div class="screen-container">
 
-        <div class="nav-block">
-
+        <div id="navBlock" data-status="open" class="nav-block">
+          <i id="navBlockBtn" class="nav-block__toggle"></i>
           <div class="nav-block__content _scroll">
 
             <ul class="nav-list">

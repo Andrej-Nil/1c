@@ -5,55 +5,29 @@
 
 .search__form {
   position: relative;
-  background: #f2f2f2;
-  padding: 4px 30px 4px 55px;
+  display: flex;
+  height: 45px;
+  align-items: center;
+  background: hsl(0, 0%, 95%);
+  padding: 4px 20px 4px 20px;
   &_active {
-    width: 600px;
-    padding: 4px 50px 4px 50px;
+    width: 300px;
+    padding: 4px 40px 4px 20px;
     box-shadow: 0 0 8px 4px rgb(0 0 0 / 25%);
-    &::before {
-      content: "";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: block;
-      width: 30px;
-      height: 30px;
-      height: 100%;
-      background-image: url("../../image/icon/close.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 20px;
-      cursor: pointer;
-    }
   }
-  &:hover {
-    width: 600px;
-    padding: 4px 50px 4px 55px;
-    box-shadow: 0 0 8px 0 rgb(0 0 0 / 25%);
-    &::before {
-      content: "";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: block;
-      width: 30px;
-      height: 30px;
-      height: 100%;
-      background-image: url("./../image/icon/close.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 20px;
-      cursor: pointer;
+
+  @media (min-width: 768px) {
+    &_active {
+      width: 600px;
+      padding: 4px 40px 4px 20px;
+      box-shadow: 0 0 8px 4px rgb(0 0 0 / 25%);
     }
   }
 }
 .search__icon {
   position: absolute;
   top: 50%;
-  left: 25px;
+  left: 20px;
   transform: translateY(-50%);
   display: block;
 
@@ -73,7 +47,7 @@
 }
 
 .search__input {
-  display: block;
+  //display: none;
   width: 100%;
   background: none;
   border: none;
@@ -81,4 +55,31 @@
   outline: none;
   font-size: 14px;
   height: 37px;
+  margin-left: 30px;
+  &.show {
+    display: block;
+  }
+  @media (min-width: 1280px) {
+    &_active {
+      width: 600px;
+      padding: 4px 40px 4px 50px;
+      box-shadow: 0 0 8px 4px rgb(0 0 0 / 25%);
+    }
+  }
+}
+
+.search__close {
+  display: none;
+  position: absolute;
+  right: 7px;
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  background-image: url("../../image/icon/close.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  &.show {
+    display: block;
+  }
 }

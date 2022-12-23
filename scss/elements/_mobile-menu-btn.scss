@@ -1,0 +1,27 @@
+.mobile-menu-open {
+  margin-left: auto;
+  display: block;
+  width: 24px;
+  height: 16px;
+  background-image: url("./../image/icon/burger.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  @media (min-width: 1280px) {
+    display: none;
+  }
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url("./../image/icon/close.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  @media (min-width: 1280px) {
+    display: none;
+  }
+}
