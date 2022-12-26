@@ -394,7 +394,7 @@ class Dropdown {
     this.$dropdownContent.classList.remove('close');
     this.$dropdownIcon.classList.add('open');
     this.$dropdownIcon.classList.remove('close');
-    if (this.$dropdownContent.querySelector('ul')) return
+    if (this.$dropdownContent.querySelector('ul')) return;
     render.renderLoader(this.$dropdownContent);
     this.createListHandler();
   }

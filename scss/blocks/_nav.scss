@@ -18,6 +18,7 @@
     padding: 20px 0;
     background: none;
     box-shadow: none;
+    z-index: 1;
   }
   &.open {
     transform: translateX(0);
@@ -42,7 +43,11 @@
   width: 100%;
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
+  font-weight: 600;
   &:hover {
+    color: #d61a20;
+  }
+  &.active {
     color: #d61a20;
   }
   @media (min-width: 1280px) {

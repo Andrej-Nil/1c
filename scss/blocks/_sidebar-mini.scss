@@ -12,10 +12,6 @@
     width: 100%;
   }
 
-  .sidebar-top__icon {
-    width: 100%;
-  }
-
   .search__form {
     width: 100%;
     padding: 4px 20px 4px 20px;
@@ -50,13 +46,11 @@
       }
     }
   }
+
   .sidebar-nav__label {
     display: none;
   }
   .sidebar-nav__arrow {
     display: none;
   }
-  //.sidebar-submenu {
-  //transform: translateX(-100%);
-  //}
 }
