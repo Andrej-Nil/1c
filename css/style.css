@@ -58,12 +58,6 @@ a {
   left: 0;
   top: 115px;
 }
-@media (min-width: 1280px) {
-  .screen-container {
-    margin: 0 0 0 93px;
-  }
-}
-
 ._scroll {
   scrollbar-width: thin; /* "auto" или "thin"  */
   scrollbar-color: #7e7e7e #bbb;
@@ -656,6 +650,8 @@ a {
 }
 
 .breadcrumbs {
+  display: flex;
+  align-items: center;
   height: 54px;
   background: #fff;
   margin-bottom: 1px;
@@ -789,14 +785,23 @@ a {
 
 .nav-block {
   position: relative;
-  width: 300px;
-  flex-shrink: 0;
+  position: absolute;
   height: 100%;
-  padding: 30px 50px 30px 0;
+  width: 250px;
+  transform: translateX(-217px);
+  padding: 30px 35px 30px 0;
+  background: #f2f2f2;
+  z-index: 10;
+  transition: 0.2s ease-in-out;
+}
+.nav-block.open {
+  transform: translateX(0);
 }
 @media (min-width: 1280px) {
   .nav-block {
-    width: 30%;
+    padding: 30px 50px 30px 30px;
+    transform: translateX(-415px);
+    width: 450px;
   }
 }
 
@@ -817,6 +822,10 @@ a {
   background-image: url(./../image/icon/arrow-right-btn.svg);
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
+}
+.nav-block__toggle.turned {
+  transform: rotate(180deg);
 }
 
 .board-block {
@@ -824,13 +833,23 @@ a {
   background: #fff;
   height: 100%;
   padding-bottom: 30px;
+  margin-left: 35px;
+  transition: 0.2s ease-in-out;
+}
+.board-block.shifted {
+  padding-bottom: 30px;
+}
+@media (min-width: 1280px) {
+  .board-block.shifted {
+    margin-left: 450px;
+  }
 }
 
 .board-block__content {
   position: relative;
   height: calc(100% - 54px);
   overflow-y: auto;
-  padding: 30px 30px 0;
+  padding: 15px 10px 0;
 }
 .board-block__content h1,
 .board-block__content h2,
@@ -838,7 +857,7 @@ a {
 .board-block__content h4,
 .board-block__content h5,
 .board-block__content h6 {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 .board-block__content p {
   margin-bottom: 15px;
@@ -864,6 +883,11 @@ a {
 .board-block__content img {
   width: 100%;
   margin-bottom: 20px;
+}
+@media (min-width: 1040px) {
+  .board-block__content {
+    padding: 30px 30px 0;
+  }
 }
 
 .nav-list_sub {

@@ -449,7 +449,6 @@ class Dropdown {
     document.addEventListener('click', this.clickHandler);
   }
 }
-
 class SidebarSearch {
   constructor(id) {
     this.$searchForm = document.querySelector(id)
@@ -505,15 +504,74 @@ class SidebarSearch {
 
 
 }
-
 class NavBlock {
   constructor(id) {
-    this.$navBlock = document.querySelector(id);
+    this.$navBlockBtn = document.querySelector(id);
     this.init();
   }
   init = () => {
-    if (!this.$navBlock) return;
-    this.$navBlockBtn = document.querySelector('navBlockBtn');
+    if (!this.$navBlockBtn) return;
+    this.$navBlock = document.querySelector('#navBlock');
+    this.$boardBlock = document.querySelector('#boardBlock');
+    this.listeners();
+  }
+
+  openNavBlock = () => {
+    this.$navBlock.classList.add('open')
+  }
+
+  closeNavBlock = () => {
+    this.$navBlock.classList.remove('open')
+  }
+
+  shiftBoardBlock = () => {
+    this.$boardBlock.classList.add('shifted');
+  }
+
+  unshiftBoardBlock = () => {
+    this.$boardBlock.classList.remove('shifted');
+  }
+  turnBtnToLeft = () => {
+    this.$navBlockBtn.classList.add('turned');
+    this.$navBlockBtn.dataset.status = 'open';
+  }
+
+  turnBtnToRight = () => {
+    this.$navBlockBtn.classList.remove('turned');
+    this.$navBlockBtn.dataset.status = 'close';
+  }
+
+  expand = () => {
+    this.turnBtnToLeft();
+    this.openNavBlock();
+    this.shiftBoardBlock();
+
+  }
+
+  narrow = () => {
+    this.turnBtnToRight();
+    this.closeNavBlock();
+    this.unshiftBoardBlock();
+  }
+
+
+
+  toggleBlock = () => {
+
+    const status = this.$navBlockBtn.dataset.status;
+    if (status === 'close') {
+      this.expand();
+
+      return;
+    }
+    if (status === 'open') {
+      this.narrow();
+
+      return;
+    }
+  }
+  listeners = () => {
+    this.$navBlockBtn.addEventListener('click', this.toggleBlock);
   }
 }
 
@@ -550,4 +608,4 @@ const sidebar = new Sidebar('#sidebar');
 const dropdown = new Dropdown();
 const sidebarSearch = new SidebarSearch('#searchForm');
 const navigation = new Navigation('#navigation');
-const navBlock = new NavBlock('#navBlock');
+const navBlock = new NavBlock('#navBlockBtn');
