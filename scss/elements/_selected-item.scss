@@ -1,0 +1,18 @@
+.selected-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.selected-item__delete {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-image: url("./../image/icon/close.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+}

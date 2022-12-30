@@ -5,7 +5,8 @@ class Service {
     this.GET = 'GET';
     this.token = this.getToken();
 
-    this.categoriesApi = './../json/submenu.json'
+    this.categoriesApi = './../json/submenu.json';
+    this.selectApi = './../json/submenu.json';
   }
 
   getCategories = (id) => {
@@ -13,8 +14,17 @@ class Service {
       id: id,
       _token: this.token
     }
-    const formData = this.createFormData(data)
+    const formData = this.createFormData(data);
     return this.getResponse(this.POST, formData, this.categoriesApi);
+  }
+
+  getSelectOptions = (id) => {
+    const data = {
+      id: id,
+      _token: this.token
+    }
+    const formData = this.createFormData(data);
+    return this.getResponse(this.POST, formData, this.selectApi);
   }
 
   getResponse = async (method, data, api) => {
@@ -70,16 +80,27 @@ class Render {
     this._render($parent, this.getDropdownListHtml, list);
   }
 
-
   renderLoader = ($parent) => {
     this._render($parent, this.getLoaderHtml, true);
   }
 
-  renderError = ($parent, massage) => {
-    this._render($parent, this.getErrorHtml, massage);
+  renderError = ($parent, message) => {
+    this._render($parent, this.getErrorHtml, message);
   }
 
+  renderPathItem = ($parent, data) => {
+    this._render($parent, this.getPathItemHtml, data);
+  }
 
+  renderSelectOption = ($parent, list) => {
+    this.clearParent($parent);
+    list.unshift({ id: '0', label: 'Выбор' })
+    this._render($parent, this.getSelectOptionHtml, false, list);
+  }
+  renderItemPathError($parent) {
+    this.clearParent($parent);
+    this._render($parent, this.getPathItemErrorHtml, true);
+  }
 
   getSidebarSubmenuHtml = (list) => {
     const itemList = this.getListHtml(this.getSidebarSubmenuListHtml, list);
@@ -99,7 +120,6 @@ class Render {
     `
   }
 
-
   getSidebarSubmenuListHtml = (item) => {
     if (item.submenu) {
       return this.getSidebarSubmenuItem(item);
@@ -107,8 +127,6 @@ class Render {
       return this.getSidebarSubmenuLink(item);
     }
   }
-
-
 
   getSidebarSubmenuItem = (item) => {
 
@@ -182,6 +200,27 @@ class Render {
     </li>
   `
   }
+
+  getPathItemHtml = (data) => {
+    return /*html*/`
+      <span data-selected-item class="selected-item" data-id="${data.id}">
+        <span class="selected-item__label">${data.title}</span>
+        <i data-delete-item class="selected-item__delete"></i>
+      </span>
+    `
+  }
+
+  getPathItemErrorHtml = () => {
+    return /*html*/`
+      <option value="error">Произошла ошибка</option>
+    `
+  }
+
+  getSelectOptionHtml = (data) => {
+    return /*html*/`
+      <option value="${data.id}">${data.label}</option>
+    `
+  }
   getLoaderHtml = (mini) => {
     const cls = ['loader']
     if (mini) cls.push('loader_mini')
@@ -221,8 +260,7 @@ class Render {
     $parent.innerHTML = '';
   }
 
-  delete = (selector) => {
-    const $el = this.$parent.querySelector(selector);
+  deleteEl = ($el) => {
     $el.remove()
   }
 
@@ -602,6 +640,133 @@ class Navigation {
   }
 }
 
+class CategorySelect {
+  constructor(id) {
+    this.$select = document.querySelector(id);
+    this.init();
+  }
+
+  init = () => {
+    if (!this.$select) return;
+    this.$formPath = document.querySelector('#formPath');
+    this.$input = document.querySelector('[data-input-id]');
+    this.id = '';
+    this.$currentOptions = null;
+    this.listeners()
+  }
+
+  addPathItem = () => {
+    const $selectOption = this.getOptopn();
+    const data = this.getOptionData($selectOption);
+    this.$input.value = data.id;
+    render.renderPathItem(this.$formPath, data);
+  }
+
+  removePathItems = ($selectItem) => {
+    const idx = this.getSelectedOptionIdx($selectItem);
+    this.cropPath(idx);
+  }
+
+  getSelectedOptionIdx = ($selectItem) => {
+    const $selectItems = this.$formPath.querySelectorAll('[data-selected-item]');
+    let index;
+    $selectItems.forEach(($item, idx) => {
+      if ($item === $selectItem) {
+        index = idx;
+      }
+    })
+    return index;
+  }
+
+  cropPath = (index) => {
+    const $selectItems = this.$formPath.querySelectorAll('[data-selected-item]');
+    $selectItems.forEach(($item, idx) => {
+      if (index <= idx) {
+        render.deleteEl($item);
+      }
+    })
+  }
+
+  removePathItemHandler = async ($btn) => {
+    this.$select.disabled = true;
+    const $selectedItem = $btn.closest('[data-selected-item]');
+    this.removePathItems($selectedItem);
+    this.prevCategoryId = this.getPrevCategoryId();
+    this.$input.value = this.prevCategoryId;
+    const response = await service.getSelectOptions(this.prevCategoryId);
+    this.createSelectContent(response);
+  }
+
+  createSelectContent = (data) => {
+    if (data.error) {
+      render.renderItemPathError(this.$select);
+    }
+    if (data.content) {
+      render.renderSelectOption(this.$select, data.content);
+      this.$select.disabled = false;
+    }
+  }
+
+  updateOptions = async () => {
+    this.$select.disabled = true;
+
+    const response = await service.getSelectOptions(this.id);
+    this.createSelectContent(response);
+    if (response.error) return true;
+  }
+
+
+  selectHandler = async () => {
+    this.id = this.$select.value;
+    this.$currentOptions = this.$select.querySelectorAll('option');
+    const rez = await this.updateOptions();
+    if (rez) return;
+    this.addPathItem();
+  }
+
+
+  getPrevCategoryId = () => {
+    const $selectedItems = this.$formPath.querySelectorAll('[data-selected-item]');
+    if ($selectedItems.length === 0) return '';
+    const idx = $selectedItems.length - 1;
+    return $selectedItems[idx].dataset.id;
+  }
+
+  getOptopn = () => {
+    for (let i = 0; i < this.$currentOptions.length; i++) {
+      if (this.$currentOptions[i].value == this.id) {
+        return this.$currentOptions[i];
+      }
+    }
+  }
+
+  getOptionData = ($option) => {
+    return {
+      id: $option.value,
+      title: $option.innerHTML
+    }
+  }
+
+  changeHandler = (e) => {
+    if (e.target.id === 'categoriesSelect') {
+      this.selectHandler();
+    }
+
+  }
+
+  clickHandler = (e) => {
+    if (e.target.closest('[data-delete-item]')) {
+      this.removePathItemHandler(e.target.closest('[data-delete-item]'));
+    }
+
+  }
+
+  listeners = () => {
+    this.$select.addEventListener('input', this.changeHandler);
+    document.addEventListener('click', this.clickHandler);
+  }
+}
+
 const service = new Service();
 const render = new Render();
 const sidebar = new Sidebar('#sidebar');
@@ -609,3 +774,4 @@ const dropdown = new Dropdown();
 const sidebarSearch = new SidebarSearch('#searchForm');
 const navigation = new Navigation('#navigation');
 const navBlock = new NavBlock('#navBlockBtn');
+const categorySelect = new CategorySelect('#categoriesSelect');

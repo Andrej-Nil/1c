@@ -1,0 +1,41 @@
+.table {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.table__row {
+  display: flex;
+  width: 100%;
+
+  border: 1px solid #ccc;
+  border-bottom: none;
+  &:nth-child(even) {
+    background: #f9f9f9;
+  }
+}
+
+.table__column {
+  width: 100px;
+  font-size: 16px;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+  &:first-child {
+    flex-grow: 1;
+  }
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.table__btn {
+  display: inline-block;
+}
+
+.table__link {
+  color: #16489b;
+  display: block;
+  &:hover {
+    color: #d61a20;
+  }
+}
+//

@@ -1,0 +1,47 @@
+.btn {
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  &.blue {
+    background: #257bb1;
+
+    color: #fff;
+    &:hover {
+      background: #338fc8;
+    }
+  }
+  &.yellow {
+    background: #ffd902;
+
+    color: #444;
+    &:hover {
+      background: #fae364;
+    }
+  }
+  &.red {
+    background: #ff1414;
+    color: #fff;
+    &:hover {
+      background: #ff4747;
+    }
+  }
+  &.small {
+    padding: 7px 7px;
+  }
+}
+
+.btn__icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background: no-repeat;
+  background-position: center;
+  background-size: contain;
+  &.del {
+    background-image: url("./../image/icon/del.svg");
+  }
+  &.red {
+    background-image: url("./../image/icon/red.svg");
+  }
+}

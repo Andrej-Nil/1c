@@ -1,0 +1,16 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control__title {
+  font-size: 16px;
+}
+
+.control-input {
+  outline: none;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+}

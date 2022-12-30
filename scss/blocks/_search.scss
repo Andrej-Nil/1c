@@ -75,10 +75,11 @@
   margin-left: auto;
   width: 24px;
   height: 24px;
-  background-image: url("../../image/icon/close.svg");
+  background-image: url("./../image/icon/close.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  cursor: pointer;
   &.show {
     display: block;
   }

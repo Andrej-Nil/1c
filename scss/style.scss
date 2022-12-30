@@ -7,6 +7,9 @@
 @import "./elements/page-title";
 @import "./elements/view-counter";
 @import "./elements/mobile-menu-btn";
+@import "./elements/control";
+@import "./elements/btn";
+@import "./elements/selected-item";
 
 @import "./blocks/loader";
 @import "./blocks/error";
@@ -30,3 +33,5 @@
 @import "./blocks/nav";
 @import "./blocks/info-block";
 @import "./blocks/search";
+@import "./blocks/form";
+@import "./blocks/table";
