@@ -133,7 +133,7 @@ class Render {
     return /*html*/`
       <li class="sidebar-submenu__item">
         <span data-submenu-id="${item.id}" data-type="submenu-two" class="sidebar-submenu__link">
-          <span class="submenu-nav__label">
+          <span data-item-label class="submenu-nav__label">
             ${item.label}
           </span>
           <i class="submenu-nav__arrow"></i>
@@ -298,26 +298,16 @@ class Sidebar {
     this.listeners();
   }
 
+  changeSubmenuTitle = ($submenu, title) => {
+    const $title = $submenu.querySelector('[data-submenu-title]');
+    $title.innerHTML = title;
+  }
+
   openSubmenu($submemu) {
     this.$sidebar.classList.remove('sidebar_mini');
     $submemu.classList.add('open');
     this.openSidebar();
   }
-
-  closeSubmenu($btn) {
-    const type = $btn.dataset.close;
-    if (type === 'submenu-one') {
-      this.$submenuOne.classList.remove('open');
-      this.$submenuTwo.classList.remove('open');
-      this.toggleSidebar();
-    }
-    if (type === 'submenu-two') {
-      this.$submenuTwo.classList.remove('open');
-      //this.toggleSidebar();
-    }
-  }
-
-
 
   createSubmenuContent = async ($submenu, id) => {
     const $submenuContent = $submenu.querySelector('[data-content]');
@@ -335,17 +325,28 @@ class Sidebar {
     }
   }
 
-  showSubmenuHadler = ($item) => {
-    const id = $item.dataset.submenuId;
-    const type = $item.dataset.type;
-    if (type === 'submenu-one') {
-      this.openSubmenu(this.$submenuOne);
-      this.createSubmenuContent(this.$submenuOne, id);
-    }
-    if (type === 'submenu-two') {
-      this.openSubmenu(this.$submenuTwo);
-      this.createSubmenuContent(this.$submenuTwo, id);
-    }
+  openSubmenuLvlOne = (id, submenuTitle) => {
+    this.changeSubmenuTitle(this.$submenuOne, submenuTitle);
+    this.openSubmenu(this.$submenuOne);
+    this.closeSubmenuLvlTwo();
+    this.createSubmenuContent(this.$submenuOne, id);
+  }
+
+  openSubmenuLvlTwo = (id, submenuTitle) => {
+    this.changeSubmenuTitle(this.$submenuTwo, submenuTitle);
+    this.openSubmenu(this.$submenuTwo);
+    this.createSubmenuContent(this.$submenuTwo, id);
+  }
+
+  closeSubmenuLvlOne = () => {
+    this.$submenuOne.classList.remove('open');
+    this.$submenuTwo.classList.remove('open');
+    this.toggleSidebar();
+  }
+
+
+  closeSubmenuLvlTwo = () => {
+    this.$submenuTwo.classList.remove('open');
   }
 
   openSidebar = () => {
@@ -357,8 +358,6 @@ class Sidebar {
     this.$sidebar.dataset.status = "close";
     this.$sidebar.classList.add('sidebar_mini');
   }
-
-
 
   openSidebarMobile = () => {
     this.$sidebar.classList.add('sidebar_open');
@@ -394,12 +393,35 @@ class Sidebar {
     }
   }
 
+  showSubmenuHadler = ($item) => {
+    const id = $item.dataset.submenuId;
+    const type = $item.dataset.type;
+    const $label = $item.querySelector('[data-item-label]');
+    const submenuTitle = $label.innerHTML.trim();
+    if (type === 'submenu-one') {
+      this.openSubmenuLvlOne(id, submenuTitle);
+    }
+    if (type === 'submenu-two') {
+      this.openSubmenuLvlTwo(id, submenuTitle);
+    }
+  }
+
+  closeSubmenuHandler($btn) {
+    const type = $btn.dataset.close;
+    if (type === 'submenu-one') {
+      this.closeSubmenuLvlOne();
+    }
+    if (type === 'submenu-two') {
+      this.closeSubmenuLvlTwo();
+    }
+  }
+
   clickHandler = (e) => {
     if (e.target.closest('[data-submenu-id]')) {
       this.showSubmenuHadler(e.target.closest('[data-submenu-id]'));
     }
     if (e.target.closest('[data-close]')) {
-      this.closeSubmenu(e.target.closest('[data-close]'));
+      this.closeSubmenuHandler(e.target.closest('[data-close]'));
     }
 
     if (e.target.closest('[data-open-sidebar]')) {

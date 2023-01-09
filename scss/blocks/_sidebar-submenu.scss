@@ -42,7 +42,7 @@
   @media (min-width: 1280px) {
     left: -25%;
     width: 420px;
-    padding: 50px 30px;
+    padding: 50px 30px 30px 30px;
   }
 }
 
@@ -60,7 +60,6 @@
     @media (min-width: 1280px) {
       transform: none;
       left: 220%;
-      display: block;
     }
   }
 

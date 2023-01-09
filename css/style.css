@@ -491,7 +491,7 @@ a {
   .sidebar-submenu {
     left: -25%;
     width: 420px;
-    padding: 50px 30px;
+    padding: 50px 30px 30px 30px;
   }
 }
 
@@ -510,7 +510,6 @@ a {
   .lvl2.open {
     transform: none;
     left: 220%;
-    display: block;
   }
 }
 @media (min-width: 700px) {
