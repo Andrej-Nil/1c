@@ -15,7 +15,9 @@
 }
 
 .table__column {
-  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 90px;
   font-size: 16px;
   padding: 5px;
   border-right: 1px solid #ccc;
