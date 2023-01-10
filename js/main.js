@@ -5,6 +5,9 @@ class Service {
     this.GET = 'GET';
     this.token = this.getToken();
 
+    //this.categoriesApi = '/api/menu';
+    //this.selectApi = '/api/category';
+
     this.categoriesApi = './../json/submenu.json';
     this.selectApi = './../json/submenu.json';
   }
@@ -100,6 +103,10 @@ class Render {
   renderItemPathError($parent) {
     this.clearParent($parent);
     this._render($parent, this.getPathItemErrorHtml, true);
+  }
+
+  renderBigPicModal = ($parent, src) => {
+    this._render($parent, this.getBigPicModalHtml, src);
   }
 
   getSidebarSubmenuHtml = (list) => {
@@ -221,6 +228,18 @@ class Render {
       <option value="${data.id}">${data.label}</option>
     `
   }
+
+  getBigPicModalHtml = (data) => {
+
+    return /*html*/`
+      <div id="bigPictureModal" class="big-picture">
+        <img class="big-picture__img"
+          src="${data}" alt="">
+        <i data-big-img-close class="big-picture__close"></i>
+      </div>
+    `
+
+  }
   getLoaderHtml = (mini) => {
     const cls = ['loader']
     if (mini) cls.push('loader_mini')
@@ -243,6 +262,8 @@ class Render {
       </div>
     `
   }
+
+  /**/
 
   getListHtml = (getHtmlFn, arr) => {
     let list = '';
@@ -661,7 +682,6 @@ class Navigation {
     this.$closeBtn.addEventListener('click', this.close);
   }
 }
-
 class CategorySelect {
   constructor(id) {
     this.$select = document.querySelector(id);
@@ -789,6 +809,46 @@ class CategorySelect {
   }
 }
 
+class PictureLoupe {
+  constructor(id) {
+    this.$container = document.querySelector(id);
+    this.init();
+  }
+
+  init = () => {
+    if (!this.$container) return;
+    this.$app = document.querySelector('#app');
+
+    this.listeners()
+  }
+
+  showBigImg = (e) => {
+    if (e.target.tagName !== 'IMG') return;
+    const src = e.target.src;
+    this.createBigPicModal(src);
+  }
+
+  deleteBigImgModal = () => {
+    const $modal = document.querySelector('#bigPictureModal');
+    render.deleteEl($modal);
+  }
+
+
+  createBigPicModal = (src) => {
+    render.renderBigPicModal(this.$app, src);
+  }
+
+  clickHandler = (e) => {
+    if (e.target.closest('[data-big-img-close]')) {
+      this.deleteBigImgModal();
+    }
+  }
+  listeners = () => {
+    this.$container.addEventListener('click', this.showBigImg);
+    document.addEventListener('click', this.clickHandler);
+  }
+}
+
 const service = new Service();
 const render = new Render();
 const sidebar = new Sidebar('#sidebar');
@@ -797,3 +857,4 @@ const sidebarSearch = new SidebarSearch('#searchForm');
 const navigation = new Navigation('#navigation');
 const navBlock = new NavBlock('#navBlockBtn');
 const categorySelect = new CategorySelect('#categoriesSelect');
+const pictureLoupe = new PictureLoupe('#boardBlock');

@@ -962,8 +962,10 @@ a {
   margin-bottom: 20px;
 }
 .board-block__content img {
-  width: 100%;
+  width: 50% !important;
+  height: auto !important;
   margin-bottom: 20px;
+  cursor: zoom-in;
 }
 @media (min-width: 1040px) {
   .board-block__content {
@@ -1300,4 +1302,34 @@ a {
 }
 .table__link:hover {
   color: #d61a20;
+}
+
+.big-picture {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  overflow-x: hidden;
+}
+
+.big-picture__img {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.big-picture__close {
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 50%;
+  background-image: url("../image/icon/close.svg");
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }/*# sourceMappingURL=style.css.map */
